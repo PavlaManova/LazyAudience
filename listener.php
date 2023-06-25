@@ -1,8 +1,8 @@
 <?php
 
 $lastTimeStamp= isset($_GET["timestamp"]) ? $_GET["timestamp"] : 0;
-$currentTimeStamp = filemtime("text.txt");
 
+$currentTimeStamp = filemtime("text.txt");
 while ($lastTimeStamp == $currentTimeStamp)
 {
 	clearstatcache();

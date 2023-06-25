@@ -60,17 +60,17 @@
     function send() {
       var message =
         template + document.getElementById("message").value + "<br>";
-
+        console.log(message)
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'sender.php', true);
+        xhr.open('GET', 'sender.php?message='+message, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
 
-        xhr.send(JSON.stringify({ message: message }));
+        xhr.send();
 
     };
 
     repeating();
-    setInterval(repeating, 500);
+    setInterval(repeating, 2000);
 
 
 
