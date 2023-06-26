@@ -1,5 +1,5 @@
 <?php
-require_once 'connect.php';
+require_once 'userModel.php';
 session_start();
 $error_message = "";
 $user = new User();

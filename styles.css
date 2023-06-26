@@ -375,3 +375,116 @@ input {
 .flex-1 {
   flex: 1;
 }
+
+.options-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+}
+
+.time-btns-container {
+  background: #454857;
+  padding: 4px;
+  border-radius: 15px;
+  box-shadow: inset 0 0 0 3px rgba(35, 33, 45, 0.3),
+    0 0 0 3px rgba(185, 185, 185, 0.3);
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.time-btns-container input {
+  width: 225px;
+  height: 80px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 4px 8px;
+  background: #454857;
+  color: #bdbdbdbd;
+  font-size: 30px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  transition: all 100ms linear;
+}
+
+.time-btns-container input:checked {
+  background-image: linear-gradient(180deg, #57b279, #327c4d);
+  color: #fff;
+  box-shadow: 0 1px 1px #0000002e;
+  text-shadow: 0 1px 0px #79485f7a;
+}
+
+.time-btns-container input:before {
+  content: attr(label);
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.command-screen {
+  width: 100%;
+  height: 60vh;
+}
+
+.command-background {
+  margin: 20px;
+  background-color: #000066;
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.command-text {
+  font-size: 90px;
+  color: beige;
+  flex: 0 0 100%;
+}
+
+.command-time {
+  flex: 0 0 100%;
+  font-size: 80px;
+  color: beige;
+}
+
+.play-sound-btn {
+  width: 250px;
+  height: 100px;
+  background-color: #57b279;
+  border-radius: 20px;
+  border: none;
+  font-size: 24pt;
+  margin: 15px;
+  color: beige;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.play-sound-btn:hover {
+  background-color: #000066;
+}

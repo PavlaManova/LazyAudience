@@ -2,6 +2,9 @@ let contentShowingId = "hero";
 
 let usersForCurrentEvent = [];
 
+const categoriesCount = 8;
+
+loadSounds();
 loadEvents();
 
 function navBtnPressed(element) {
@@ -66,8 +69,6 @@ function logout() {
   var newUrl = "../Demo/index.html"; // Replace with the desired URL
   history.replaceState({}, "", newUrl);
 
-  // Redirect the user to the logout or home page
-  // Example: Redirecting to the login page
   window.location.href = newUrl;
 }
 
@@ -124,14 +125,14 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    //TO DO - DA SE DOBAVI EVENTA KUM EVENTS TABA
+    //TO DO - add the current event to events container because the container is already fetched
 
     let name = document.getElementById("name").value;
     let description = document.getElementById("description").value;
     let date = document.getElementById("date").value;
     let time = document.getElementById("hour").value;
 
-    var audianceJsonString = JSON.stringify(usersForCurrentEvent);
+    var audienceJsonString = JSON.stringify(usersForCurrentEvent);
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "./events.php", true);
@@ -162,8 +163,8 @@ document
         encodeURIComponent(date) +
         "&hour=" +
         encodeURIComponent(time) +
-        "&audiance=" +
-        encodeURIComponent(audianceJsonString)
+        "&audience=" +
+        encodeURIComponent(audienceJsonString)
     );
 
     usersForCurrentEvent = [];
@@ -220,11 +221,54 @@ function appendEventChildToGivenList(element, listId, isHost) {
 }
 
 function enterGuestEvent(event_id) {
-  window.location.href = 'test.html';
+  window.location.href = "./audienceView.php?id=" + event_id;
 }
 
 function enterHostedEvent(event_id) {
-  fetch('sendCommand.php');
-  window.location.href = 'admin.html';
-  
+  window.location.href = "./hostView.php?id=" + event_id;
+}
+
+function loadSounds() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "soundsController.php?load_sounds=true", true);
+  xhttp.onload = function () {
+    if (this.status === 200) {
+      var data = JSON.parse(this.responseText);
+      console.log(data)
+
+      for (var i = 0; i < data.length; i++) {
+        let categoryData = data[i];
+        for (var key in categoryData) {
+          if (categoryData.hasOwnProperty(key)) {
+            var value = categoryData[key][0];
+            if(value)
+            {
+              appendSoundChildToList(value, i);
+            }
+          }
+        }
+      }
+    } else {
+      console.log("Error" + xhttp.status);
+    }
+  };
+  xhttp.send();
+}
+
+function appendSoundChildToList(element, i) {
+  let singleSound = document.getElementsByClassName("sound")[0].cloneNode(true);
+  singleSound.getElementsByClassName("sound-name")[0].textContent =
+    element["name"];
+
+  let playBtn = singleSound.getElementsByClassName("btn-small")[0];
+  playBtn.id = "play-" + element["id"];
+  playBtn.onclick = (function (soundPath) {
+    return function () {
+      new Audio(soundPath).play();
+    };
+  })(element["path"]);
+
+  let parentNode = document.getElementsByClassName("sounds")[i];
+  let buyBtn = parentNode.getElementsByClassName('buy-sound-btn')[0];
+  parentNode.insertBefore(singleSound, buyBtn);
 }

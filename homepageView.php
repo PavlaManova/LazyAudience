@@ -20,7 +20,7 @@
         <button id="log-out-btn" onclick="logout()"></button>
     </header>
     <section class="display-flex">
-        <h1 id="site-name" onclick="showHomePage()">Lazy Audiance</h1>
+        <h1 id="site-name" onclick="showHomePage()">Lazy Audience</h1>
     </section>
 
     <nav>
@@ -67,15 +67,14 @@
                 <input type="checkbox" id="check1" class="category-accordion" />
                 <label class="category-label" for="check1">Applause</label>
                 <ul class="sounds">
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <button class="btn-big buy-btn" id="buy-applause-btn">
+                    <section class="hide">
+                        <li class="sound">
+                            <p class="sound-name">Sound 1</p>
+                            <button class="btn-small">&#9654;</button>
+                        </li>
+                    </section>
+
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
                         Buy Sound
                     </button>
                 </ul>
@@ -84,11 +83,8 @@
                 <input type="checkbox" id="check2" class="category-accordion" />
                 <label class="category-label" for="check2">Laugh</label>
                 <ul class="sounds">
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <button class="btn-big buy-btn" id="buy-applause-btn">
+
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
                         Buy Sound
                     </button>
                 </ul>
@@ -97,11 +93,8 @@
                 <input type="checkbox" id="check3" class="category-accordion" />
                 <label class="category-label" for="check3">Booing</label>
                 <ul class="sounds">
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <button class="btn-big buy-btn" id="buy-applause-btn">
+
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
                         Buy Sound
                     </button>
                 </ul>
@@ -110,11 +103,8 @@
                 <input type="checkbox" id="check4" class="category-accordion" />
                 <label class="category-label" for="check4">Bravo!</label>
                 <ul class="sounds">
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <button class="btn-big buy-btn" id="buy-applause-btn">
+
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
                         Buy Sound
                     </button>
                 </ul>
@@ -123,11 +113,8 @@
                 <input type="checkbox" id="check5" class="category-accordion" />
                 <label class="category-label" for="check5">Whistle</label>
                 <ul class="sounds">
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <button class="btn-big buy-btn" id="buy-applause-btn">
+
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
                         Buy Sound
                     </button>
                 </ul>
@@ -136,11 +123,8 @@
                 <input type="checkbox" id="check6" class="category-accordion" />
                 <label class="category-label" for="check6">Cheering</label>
                 <ul class="sounds">
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <button class="btn-big buy-btn" id="buy-applause-btn">
+
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
                         Buy Sound
                     </button>
                 </ul>
@@ -149,11 +133,8 @@
                 <input type="checkbox" id="check7" class="category-accordion" />
                 <label class="category-label" for="check7">Disappointment</label>
                 <ul class="sounds">
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <button class="btn-big buy-btn" id="buy-applause-btn">
+
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
                         Buy Sound
                     </button>
                 </ul>
@@ -162,11 +143,8 @@
                 <input type="checkbox" id="check8" class="category-accordion" />
                 <label class="category-label" for="check8">Distinct Chatter</label>
                 <ul class="sounds">
-                    <li class="sound">
-                        <p>Sound 1</p>
-                        <button class="btn-small">&#9654;</button>
-                    </li>
-                    <button class="btn-big buy-btn" id="buy-applause-btn">
+
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
                         Buy Sound
                     </button>
                 </ul>
@@ -187,7 +165,7 @@
     </section>
 
     <section id="create-event-content" class="changable-content hide">
-        <h1>Create Event For Audiance and Invite People</h1>
+        <h1>Create Event For Audience and Invite People</h1>
         <form id="create-event-form" method="POST" action='events.php' enctype="multipart/form-data">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" class="create-event-form-input" />
@@ -232,7 +210,7 @@
 
     <section class="users-pop-up-wrapper hide display-flex" id="users-wrapper">
         <section class="users-pop-up" id="users-pop-up">
-            <h1>Invite Audiance to Your Event</h1>
+            <h1>Invite Audience to Your Event</h1>
             <button class="close-btn btn-small" onclick="closeUsersPopUp()">X</button>
             <section class="hide">
                 <section class="user-to-invite-info" id="single-user-info">

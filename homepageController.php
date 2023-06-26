@@ -1,5 +1,5 @@
 <?php // home.php
-require_once 'connect.php';
+require_once 'userModel.php';
 $user = new User();
 session_start();
 $userInfo;
@@ -10,6 +10,8 @@ if (isset($_SESSION['username'])) {
     $user_points = $userInfo['user_points'];
 
     $_SESSION['user_id'] = $userInfo['id'];
+    $_SESSION['user_points'] = $userInfo['user_points'];
+    $_SESSION['avatar_img'] = $avatar_img;
 } else {
     // user is not authenticated
     header('Location: loginView.php');
@@ -23,15 +25,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['get_users'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['load_guest_events'])) {
-    $usersInfoJson = json_encode($user->fetchAllGuestEvents($userInfo['id']));
+    $userEventsInfoJson = json_encode($user->fetchAllGuestEvents($userInfo['id']));
     header('Content-Type: application/json');
-    echo $usersInfoJson;
+    echo $userEventsInfoJson;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['load_hosted_events'])) {
-    $usersInfoJson = json_encode($user->fetchAllHostedEvents($userInfo['id']));
+    $userEventsInfoJson = json_encode($user->fetchAllHostedEvents($userInfo['id']));
     header('Content-Type: application/json');
-    echo $usersInfoJson;
+    echo $userEventsInfoJson;
 }
-
 ?>
