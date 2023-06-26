@@ -3,21 +3,18 @@
     <title>PHP SSE Demo</title>
   </head>
 
-  
-<script src="AjaxPush.js"></script>
-  
+  <script src="AjaxPush.js"></script>
+
   <body>
     <!-- <button id="commandButton" onclick="commandBtnClick()">Send</button> -->
     <ul id="list">
       <!-- new content appears here -->
     </ul>
-    <input type="text" autofocus id="message" placeholder="your message!" />
-    <button onclick="send()">Send</button><br /><br />
     <div id="history"></div>
   </body>
 
   <script>
-    let timestamp=0;
+    let timestamp = 0;
     var n = function () {
       return (Math.random() * 190).toFixed(0);
     };
@@ -27,53 +24,40 @@
     var template =
       "<strong style='color: " + c + "'>" + "user_" + n() + "</strong>: ";
 
-    // listener
-    function repeating()
-    {
-    var xhttpr = new XMLHttpRequest();
-  xhttpr.open('GET', "listener.php", true);
-  xhttpr.setRequestHeader('Content-Type', 'application/json');
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get("id");
 
-  xhttpr.onload = function() {
-    if (xhttpr.status === 200) {
-      var data = JSON.parse(xhttpr.responseText);
-      console.log(data);
-      timestamp = data.timestamp;
-      var historyElement = document.getElementById("history");
-      historyElement.textContent += data.message + "<br>";
+    function listener() {
+      var xhttpr = new XMLHttpRequest();
+      xhttpr.open(
+        "GET",
+        "listener.php?timestamp=" + new Date().getTime() + 
+        "&eventId=" + eventId,
+        true
+      );
+      xhttpr.setRequestHeader("Content-Type", "application/json");
+
+      xhttpr.onload = function () {
+        if (xhttpr.status === 200) {
+          var data = JSON.parse(xhttpr.responseText);
+          console.log(data);
+          timestamp = data.timestamp;
+          var historyElement = document.getElementById("history");
+
+          let newMsg = data.message.length > 0 ? data.message + "<br>" : "";
+          historyElement.textContent += newMsg;
+        }
+      };
+
+      xhttpr.onerror = function () {
+        console.info("The connection has been lost!, trying to reconnect ...");
+      };
+
+      xhttpr.send(JSON.stringify({ timestamp: timestamp }));
     }
-  };
 
-  xhttpr.onerror = function() {
-    console.info("The connection has been lost!, trying to reconnect ...");
-    
-  };
-
-
-  xhttpr.send(JSON.stringify({ timestamp: timestamp }));
-}
-
-     
-
-
-    // sender
-    function send() {
-      var message =
-        template + document.getElementById("message").value + "<br>";
-        console.log(message)
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'sender.php?message='+message, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        xhr.send();
-
-    };
-
-    repeating();
-    setInterval(repeating, 2000);
-
-
-
+    listener();
+    setInterval(listener, 200);
 
     // // Function to fetch new messages and update the list
     // function fetchMessages() {

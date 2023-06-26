@@ -1,4 +1,8 @@
 <?php
+$message = isset($_POST["message"]) ? $_POST["message"] : "";
+$memoryEfficientMsg = strlen($message) > 0 ? $message."\n" : "";
+$eventID = isset($_POST["eventId"]) ? $_POST["eventId"] : 0;
 
-$message = isset($_GET["message"]) ? $_GET["message"] : "";
-file_put_contents("text.txt", $message);
+file_put_contents("text_".$eventID.".tmp", $message,  FILE_APPEND );
+file_put_contents("text_".$eventID.".log", $memoryEfficientMsg,  FILE_APPEND );
+?>

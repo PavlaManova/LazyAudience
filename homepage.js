@@ -155,15 +155,15 @@ document
     };
     xhr.send(
       "create_event=1&name=" +
-        encodeURIComponent(name) +
-        "&description=" +
-        encodeURIComponent(description) +
-        "&date=" +
-        encodeURIComponent(date) +
-        "&hour=" +
-        encodeURIComponent(time) +
-        "&audiance=" +
-        encodeURIComponent(audianceJsonString)
+      encodeURIComponent(name) +
+      "&description=" +
+      encodeURIComponent(description) +
+      "&date=" +
+      encodeURIComponent(date) +
+      "&hour=" +
+      encodeURIComponent(time) +
+      "&audiance=" +
+      encodeURIComponent(audianceJsonString)
     );
 
     usersForCurrentEvent = [];
@@ -220,11 +220,11 @@ function appendEventChildToGivenList(element, listId, isHost) {
 }
 
 function enterGuestEvent(event_id) {
-  window.location.href = 'test.html';
+  window.location.href = './test.html?id=' + event_id;
 }
 
 function enterHostedEvent(event_id) {
   fetch('sendCommand.php');
-  window.location.href = 'admin.html';
-  
+  window.location.href = './admin.html?id=' + event_id;
+
 }

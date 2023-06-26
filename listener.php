@@ -1,16 +1,20 @@
 <?php
-
+// this->userID ima li eventID
 $lastTimeStamp= isset($_GET["timestamp"]) ? $_GET["timestamp"] : 0;
+$eventID= isset($_GET["eventId"]) ? $_GET["eventId"] : 0;
+$file = "text_".$eventID.".tmp";
+$currentTimeStamp = filemtime($file);
 
-$currentTimeStamp = filemtime("text.txt");
 while ($lastTimeStamp == $currentTimeStamp)
 {
 	clearstatcache();
 	session_write_close();
-	$currentTimeStamp = filemtime("text.txt");
+	$currentTimeStamp = filemtime($file);
 	usleep(5000);
 }
 
-echo json_encode(["message" => file_get_contents("text.txt"), "timestamp" => $currentTimeStamp]);
+echo json_encode(["message" => file_get_contents($file), "timestamp" => $currentTimeStamp]);
 
+//Clear file
+file_put_contents($file, "");
 ?>

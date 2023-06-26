@@ -4,22 +4,27 @@
   </head>
 
   <body>
-    <button id="commandButton" onclick="commandBtnClick()" action="sendCommand.php">Send</button>
+    <button
+      id="commandButton"
+      onclick="commandBtnClick()"
+      action="sendCommand.php"
+    >
+      Send
+    </button>
     <ul id="list">
       <!-- new content appears here -->
     </ul>
   </body>
 
   <script>
-
-
-
-
     var l = 5;
     function commandBtnClick() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const eventId = urlParams.get("id");
+
       var command = "Your command" + (++l).toString(); // Replace with the command you want to send
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "./add_message.php", true);
+      xhr.open("POST", "./sender.php", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -29,19 +34,22 @@
       xhr.onerror = function () {
         console.log("An error occurred");
       };
-      xhr.send("command=" + encodeURIComponent(++l));
+      xhr.send("message=" + command + "&eventId=" + eventId);
     }
 
     function runScript() {
-            fetch('sendCommand.php', {
-                method: 'POST'
-            }).then(function(response) {
-                return response.text();
-            }).then(function(data) {
-                console.log(data); // Handle the response from the PHP script
-            }).catch(function(error) {
-                console.log('Error:', error);
-            });
-        }
+      fetch("sendCommand.php", {
+        method: "POST",
+      })
+        .then(function (response) {
+          return response.text();
+        })
+        .then(function (data) {
+          console.log(data); // Handle the response from the PHP script
+        })
+        .catch(function (error) {
+          console.log("Error:", error);
+        });
+    }
   </script>
 </html>
