@@ -49,7 +49,7 @@ function appendCategoryBtnChildToList(element) {
 let timesPressed = 0;
 
 function playRandomSoundFromCategory(categoryName) {
-//   if (timesPressed) return;
+  if (timesPressed) return;
 
   let commandCategory =
     document.getElementsByClassName("command-text")[0].textContent;
@@ -64,10 +64,10 @@ function playRandomSoundFromCategory(categoryName) {
     timesPressed++;
     updateUserPointsOnCorrectSound();
   } 
-//   else {
-//     timesPressed++;
-//     return;
-//   }
+  else {
+    timesPressed++;
+    return;
+  }
   var xhttp = new XMLHttpRequest();
   xhttp.open("GET", "./soundsController.php?category=" + categoryName, true);
   xhttp.onload = function () {
