@@ -220,11 +220,11 @@ function appendEventChildToGivenList(element, listId, isHost) {
 }
 
 function enterGuestEvent(event_id) {
-  window.location.href = './test.html?id=' + event_id;
+  window.location.href = './test.php?id=' + event_id;
 }
 
 function enterHostedEvent(event_id) {
   fetch('sendCommand.php');
-  window.location.href = './admin.html?id=' + event_id;
+  window.location.href = './admin.php?id=' + event_id;
 
 }
