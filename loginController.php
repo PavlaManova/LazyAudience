@@ -4,6 +4,11 @@ session_start();
 $error_message = "";
 $user = new User();
 
+// If user is logged then log out him/her.
+if (isset($_SESSION['username'])){
+    session_destroy();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // retrieve the form data
     $entered_username = $_POST['username'];
