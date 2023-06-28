@@ -1,5 +1,5 @@
-<?php // home.php
-require_once 'userModel.php';
+<?php 
+require_once './userModel.php';
 $user = new User();
 session_start();
 $userInfo;
@@ -14,7 +14,7 @@ if (isset($_SESSION['username'])) {
     $_SESSION['avatar_img'] = $avatar_img;
 } else {
     // user is not authenticated
-    header('Location: loginView.php');
+    header('Location: ./loginView.php');
     exit();
 }
 

@@ -1,18 +1,18 @@
+let commandId = 0;
+
 function sendCommand() {
   const urlParams = new URLSearchParams(window.location.search);
   const eventId = urlParams.get("id");
 
-  let category = getCheckedButtonLabelFrom('category');
-  let time = getCheckedButtonLabelFrom('time');
+  let category = getCheckedButtonLabelFrom("category");
+  let time = getCheckedButtonLabelFrom("time");
 
-  var command = category + ";" + time;
+  var command = commandId.toString() + ";" + category + ";" + time;
+  commandId++;
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "./sender.php", true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      console.log(xhr.responseText);
-    }
   };
   xhr.onerror = function () {
     console.log("An error occurred");
@@ -20,9 +20,8 @@ function sendCommand() {
   xhr.send("message=" + command + "&eventId=" + eventId);
 }
 
-function getCheckedButtonLabelFrom(name)
-{
-    let radioButtons = document.getElementsByName(name);
+function getCheckedButtonLabelFrom(name) {
+  let radioButtons = document.getElementsByName(name);
 
   var checkedButton;
   for (var i = 0; i < radioButtons.length; i++) {
@@ -31,7 +30,7 @@ function getCheckedButtonLabelFrom(name)
       break;
     }
   }
-  return checkedButton.getAttribute('label');
+  return checkedButton.getAttribute("label");
 }
 
 function showHomePage() {
@@ -39,7 +38,7 @@ function showHomePage() {
 }
 
 function logout() {
-  var newUrl = "../Demo/index.html"; // Replace with the desired URL
+  var newUrl = "../LazyAudience/index.php"; // Replace with the desired URL
   history.replaceState({}, "", newUrl);
 
   window.location.href = newUrl;

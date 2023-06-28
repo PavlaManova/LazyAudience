@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration Form</title>
-    <script src="registration.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <script src="./registration.js"></script>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <h2>Registration Form</h2>
-    <form id="registrationForm" method="POST" action="registration.php" enctype="multipart/form-data">
+    <form id="registrationForm" method="POST" action="./registration.php" enctype="multipart/form-data">
         <label for="username">Username:</label>
         <input type="text" id="username1" name="username" required><br>
 
@@ -27,7 +27,7 @@
     <button onclick="goBack()">Go Back</button>
     <script>
         function goBack() {
-            window.location.href = '../Demo/index.html';
+            window.location.href = '../LazyAudience/index.php';
         }
     </script>
 </body>

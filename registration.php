@@ -1,6 +1,6 @@
 <?php
 
-require_once 'userModel.php';
+require_once './userModel.php';
 session_start();
 
 // Define allowed image file types
@@ -13,8 +13,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
-    $profilePicture = $_FILES["avatar"]["tmp_name"];
-    $targetDir = 'uploads/' . basename($_FILES["avatar"]["name"]);
+    $targetDir;
+    $fileIsUploaded = false;
+    if (!file_exists($_FILES['avatar']['tmp_name']) || !is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+        $targetDir = 'uploads/1.png';
+    } else {
+        $profilePicture = $_FILES["avatar"]["tmp_name"];
+        $targetDir = 'uploads/' . basename($_FILES["avatar"]["name"]);
+        $fileIsUploaded = true;
+    }
     $_SESSION['message'] = "";
 
 
@@ -51,33 +58,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // exit();
     }
 
-    // ДА СЕ ОПРАВЯТ ГРЕШКИТЕ ДА НЕ СА САМО С ECHO
     //validate img path
     // Check if the file is an image type
-    if ($_FILES["avatar"]!=null && in_array($_FILES["avatar"]['type'], $allowedTypes)) {
+    if ($fileIsUploaded && in_array($_FILES["avatar"]['type'], $allowedTypes)) {
         // File is an image type
         if (move_uploaded_file($profilePicture, $targetDir)) {
-            var_dump( "Profile picture uploaded successfully!");
+            var_dump("Profile picture uploaded successfully!");
         } else {
-            var_dump( "Error uploading the profile picture.");
+            var_dump("Error uploading the profile picture.");
             $_SESSION['message'] = "Error uploading the profile picture.";
             // header("Location: registration.html");
             // exit();
         }
-    } else {
-        var_dump( 'Invalid file type. Only JPEG, PNG, and GIF images are allowed.');
-        // File is not an image type
-        $_SESSION['message'] = 'Invalid file type. Only JPEG, PNG, and GIF images are allowed.';
-        // header("Location: registration.html");
-        // exit();
     }
+    // else {
+    //     var_dump( 'Invalid file type. Only JPEG, PNG, and GIF images are allowed.');
+    //     // File is not an image type
+    //     $_SESSION['message'] = 'Invalid file type. Only JPEG, PNG, and GIF images are allowed.';
+    //     // header("Location: registration.html");
+    //     // exit();
+    // }
 
     if ($user->insertUser($username, $password, $email, $targetDir)) {
         // $response = array("success" => true);
         $_SESSION["username"] = $username;
-        $_SESSION["fileName"] = $targetDir;
+        // $_SESSION["fileName"] = $targetDir;
 
-        header("Location: homepageView.php");
+        header("Location: ./homepageView.php");
         // //echo json_encode($response);
         exit();
     } else {

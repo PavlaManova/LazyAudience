@@ -1,5 +1,5 @@
-<?php // home.php
-require_once 'userModel.php';
+<?php
+require_once './userModel.php';
 $user = new User();
 session_start();
 

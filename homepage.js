@@ -1,11 +1,14 @@
 let contentShowingId = "hero";
 
 let usersForCurrentEvent = [];
+let soundsForBuying = [];
+let currentBuySoundWrapper;
 
 const categoriesCount = 8;
 
 loadSounds();
 loadEvents();
+loadSoundsForBuying();
 
 function navBtnPressed(element) {
   document.getElementById("line").classList.remove("hide");
@@ -66,7 +69,7 @@ function showHomePage() {
 }
 
 function logout() {
-  var newUrl = "../Demo/index.html"; // Replace with the desired URL
+  var newUrl = "../LazyAudience/index.php"; // Replace with the desired URL
   history.replaceState({}, "", newUrl);
 
   window.location.href = newUrl;
@@ -78,7 +81,7 @@ function openUsersPopUp() {
   document.getElementById("users-wrapper").classList.remove("hide");
 
   var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "homepageController.php?get_users=true", true);
+  xhttp.open("GET", "./homepageController.php?get_users=true", true);
 
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
@@ -140,7 +143,6 @@ document
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
-          console.log(xhr.responseText);
           if (xhr.responseText == "success") {
             document.getElementById("create-event-form").reset();
           } else {
@@ -168,16 +170,18 @@ document
     );
 
     usersForCurrentEvent = [];
+
+    alert("Event added successfully!");
   });
 
 function loadEvents() {
   GETRequestForHostedEvents(
-    "homepageController.php?load_hosted_events=true",
+    "./homepageController.php?load_hosted_events=true",
     "events-host-list",
     true
   );
   GETRequestForHostedEvents(
-    "homepageController.php?load_guest_events=true",
+    "./homepageController.php?load_guest_events=true",
     "events-list",
     false
   );
@@ -230,20 +234,18 @@ function enterHostedEvent(event_id) {
 
 function loadSounds() {
   var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "soundsController.php?load_sounds=true", true);
+  xhttp.open("GET", "./soundsController.php?load_sounds=true", true);
   xhttp.onload = function () {
     if (this.status === 200) {
       var data = JSON.parse(this.responseText);
-      console.log(data)
-
       for (var i = 0; i < data.length; i++) {
         let categoryData = data[i];
         for (var key in categoryData) {
           if (categoryData.hasOwnProperty(key)) {
-            var value = categoryData[key][0];
-            if(value)
-            {
-              appendSoundChildToList(value, i);
+            if (categoryData[key]) {
+              categoryData[key].forEach((element) => {
+                appendSoundChildToList(element, i);
+              });
             }
           }
         }
@@ -269,6 +271,60 @@ function appendSoundChildToList(element, i) {
   })(element["path"]);
 
   let parentNode = document.getElementsByClassName("sounds")[i];
-  let buyBtn = parentNode.getElementsByClassName('buy-sound-btn')[0];
+  let buyBtn = parentNode.getElementsByClassName("buy-sound-btn")[0];
   parentNode.insertBefore(singleSound, buyBtn);
+}
+
+function loadSoundsForBuying() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "./soundsController.php?load_sounds_for_buying=true", true);
+  xhttp.onload = function () {
+    if (this.status === 200) {
+      soundsForBuying = JSON.parse(this.responseText);
+    } else {
+      console.log("Error" + xhttp.status);
+    }
+  };
+  xhttp.send();
+}
+
+function openBuyPopUp(categoryIndex) {
+  window.scrollTo(0, 0);
+  currentBuySoundWrapper = document
+    .getElementById("buy-sounds-wrapper")
+    .cloneNode(true);
+  currentBuySoundWrapper.classList.remove("hide");
+
+  var currentList = currentBuySoundWrapper.getElementsByClassName("pop-up")[0];
+
+  let categoryData = soundsForBuying[categoryIndex];
+  for (var key in categoryData) {
+    if (categoryData.hasOwnProperty(key)) {
+      if (categoryData[key]) {
+        categoryData[key].forEach((element) => {
+          appendSoundChildToBuyPopUp(element, currentList);
+        });
+      }
+    }
+  }
+
+  document.body.appendChild(currentBuySoundWrapper);
+}
+
+function appendSoundChildToBuyPopUp(element, currentList) {
+  let singleSound = currentList
+    .getElementsByClassName("single-sound-info")[0]
+    .cloneNode(true);
+  singleSound.getElementsByClassName("sound-to-buy-name")[0].textContent =
+    element["name"];
+  singleSound.getElementsByClassName("sound-to-buy-points")[0].textContent =
+    element["points"];
+  currentList.appendChild(singleSound);
+}
+
+function buySound() {}
+
+function closeBuyPopUp() {
+  window.scrollTo(0, 0);
+  document.body.removeChild(currentBuySoundWrapper);
 }

@@ -1,5 +1,5 @@
 <?php 
-    include('loginController.php');
+    include('./loginController.php');
 ?>
 
 <!DOCTYPE html>
@@ -27,13 +27,13 @@
                 <input type="password" id="password" name="password" required>
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit" id="loging">Login</button>
         </form>
-        <button onclick="goBack()">Go Back</button>
+        <button onclick="goBack()" id="goback">Go Back</button>
     </main>
     <script>
         function goBack() {
-            window.location.href = '../Demo/index.html';
+            window.location.href = '../LazyAudience/index.php';
         }
     </script>
 </body>

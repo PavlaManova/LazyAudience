@@ -1,5 +1,5 @@
-<?php include 'homepageController.php' ?>
-<?php include 'audienceController.php' ?>
+<?php include './homepageController.php' ?>
+<?php include './audienceController.php' ?>
 
 <!DOCTYPE html>
 <html>
@@ -37,6 +37,6 @@
         </section>
     </section>
 </body>
-<script src="audience.js"></script>
+<script src="./audience.js"></script>
 
 </html>

@@ -21,6 +21,7 @@ header {
   align-items: center;
   padding: 20px 0px;
   background-color: #000066;
+  text-align: center;
 }
 
 #site-name {
@@ -343,7 +344,7 @@ input {
   color: black;
 }
 
-.users-pop-up-wrapper {
+.pop-up-wrapper {
   position: absolute;
   left: 0;
   top: 0;
@@ -355,7 +356,7 @@ input {
   justify-content: center;
 }
 
-.users-pop-up {
+.pop-up {
   position: absolute;
   width: 60%;
   /* top: 50%;
@@ -367,9 +368,10 @@ input {
   border-radius: 15px;
 }
 
-.user-to-invite-info {
+.pop-up-line {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .flex-1 {
@@ -443,6 +445,10 @@ input {
   margin-top: 15px;
 }
 
+.margin-bottom-15 {
+  margin-bottom: 15px;
+}
+
 .command-screen {
   width: 100%;
   height: 60vh;
@@ -487,4 +493,44 @@ input {
 
 .play-sound-btn:hover {
   background-color: #000066;
+}
+
+button#loging,
+button#register,
+button#goback {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button#loging,
+button#register {
+  background-color: #3498db;
+}
+
+button#loging:hover,
+button#register:hover {
+  background-color: #2980b9;
+}
+
+button#goback {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+button#goback:hover {
+  background-color: #2980b9;
+}
+
+button#register {
+  background-color: #3498db;
 }

@@ -1,5 +1,13 @@
 currentCategoryFromCommand = "";
 const pointsForCorrectSound = 3;
+let lastFetchedCommandId = -1;
+
+const commandIdIndex = 0,
+commandTextIndex = 1,
+commandTimeIndex = 2;
+
+const urlParams = new URLSearchParams(window.location.search);
+const eventId = urlParams.get("id");
 
 function showHomePage() {
   window.location.href = "./homepageView.php";
@@ -63,8 +71,7 @@ function playRandomSoundFromCategory(categoryName) {
   ) {
     timesPressed++;
     updateUserPointsOnCorrectSound();
-  } 
-  else {
+  } else {
     timesPressed++;
     return;
   }
@@ -82,48 +89,51 @@ function playRandomSoundFromCategory(categoryName) {
 }
 
 function logout() {
-  var newUrl = "../Demo/index.html"; // Replace with the desired URL
+  var newUrl = "../LazyAudience/index.php"; // Replace with the desired URL
   history.replaceState({}, "", newUrl);
 
   window.location.href = newUrl;
 }
 
-const urlParams = new URLSearchParams(window.location.search);
-const eventId = urlParams.get("id");
-
 function polling() {
   var xhttpr = new XMLHttpRequest();
   xhttpr.open(
     "GET",
-    "listener.php?timestamp=" + new Date().getTime() + "&eventId=" + eventId,
+    "./listener.php?&eventId=" + eventId,
     true
   );
   xhttpr.setRequestHeader("Content-Type", "application/json");
 
   xhttpr.onload = function () {
     if (xhttpr.status === 200) {
+      if(!xhttpr.responseText) return;
       var data = JSON.parse(xhttpr.responseText);
+
       var command = document.getElementsByClassName("command-text")[0];
       var time = document.getElementsByClassName("command-time")[0];
 
       let newMsg = data.message.length > 0 ? data.message : "";
       if (newMsg) {
         let dataArr = newMsg.split(";");
-        command.textContent = dataArr[0];
+        if (lastFetchedCommandId == dataArr[commandIdIndex]) return;
+        else {
+          lastFetchedCommandId = dataArr[commandIdIndex];
+        }
+        command.textContent = dataArr[commandTextIndex];
         timesPressed = 0;
 
-        switch (dataArr[1]) {
-          case "Immediately": {
+        switch (dataArr[commandTimeIndex]) {
+          case "Immediately\n": {
             time.textContent = "Now";
             timesPressed = 0;
             break;
           }
-          case "In 3 2 1": {
+          case "In 3 2 1\n": {
             messages = ["In 3", "In 2", "In 1", "Now", ""];
             displayMessage(messages, 0, time);
             break;
           }
-          case "In 10 9 8...": {
+          case "In 10 9 8...\n": {
             messages = [
               "In 10",
               "In 9",

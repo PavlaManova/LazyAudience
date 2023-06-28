@@ -1,20 +1,19 @@
 <?php
-// this->userID ima li eventID
-$lastTimeStamp= isset($_GET["timestamp"]) ? $_GET["timestamp"] : 0;
-$eventID= isset($_GET["eventId"]) ? $_GET["eventId"] : 0;
-$file = "./tmp/text_".$eventID.".tmp";
-$currentTimeStamp = filemtime($file);
 
-while ($lastTimeStamp == $currentTimeStamp)
-{
-	clearstatcache();
-	session_write_close();
-	$currentTimeStamp = filemtime($file);
-	usleep(5000);
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['eventId'])) {
+
+	$eventID = isset($_GET["eventId"]) ? $_GET["eventId"] : -1;
+	$file = "./events_logs/text_" . $eventID . ".log";
+
+	if (file_exists($file)) {
+		$lines = file($file);
+
+		echo json_encode(["message" => $lines[count($lines) - 1]]);
+	}
+	else
+	{
+		echo json_encode(["message" => ""]);
+	}
+
 }
-
-echo json_encode(["message" => file_get_contents($file), "timestamp" => $currentTimeStamp]);
-
-//Clear file
-file_put_contents($file, "");
 ?>

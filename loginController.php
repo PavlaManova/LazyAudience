@@ -1,5 +1,5 @@
 <?php
-require_once 'userModel.php';
+require_once './userModel.php';
 session_start();
 $error_message = "";
 $user = new User();
@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //check password
         if (password_verify($entered_password, $userPassword)) {
             $_SESSION['username'] = $entered_username;
-            $_SESSION['fileName'] = $userInfo['avatar_img_path'];
-            header(("Location: homepageView.php"));
+            // $_SESSION['fileName'] = $userInfo['avatar_img_path'];
+            header(("Location: ./homepageView.php"));
             exit();
         } else {
             $error_message = "Incorrect password.";

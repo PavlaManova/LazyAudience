@@ -1,6 +1,6 @@
 <?php
 
-require_once 'eventsModel.php';
+require_once './eventsModel.php';
 session_start();
 
 $event = new Event();

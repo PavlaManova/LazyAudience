@@ -1,4 +1,4 @@
-<?php include 'homepageController.php' ?>
+<?php include './homepageController.php' ?>
 
 <!DOCTYPE html>
 <html>
@@ -28,9 +28,9 @@
             <li class="nav-item" id="sounds" onclick="navBtnPressed(this)">
                 Sounds
             </li>
-            <li class="nav-item" id="invitations" onclick="navBtnPressed(this)">
+            <!-- <li class="nav-item" id="invitations" onclick="navBtnPressed(this)">
                 Invitations
-            </li>
+            </li> -->
             <li class="nav-item" id="create-event" onclick="navBtnPressed(this)">
                 Create Event
             </li>
@@ -58,7 +58,6 @@
         </section>
     </section>
 
-    <!-- ДА СЕ СМЕНЯТ ID НА БУТОНИТЕ ЗА КУПУВАНЕ -->
     <section id="sounds-content" class="hide changable-content display-flex">
         <h1>Your sounds</h1>
         <h2>Categories</h2>
@@ -74,7 +73,7 @@
                         </li>
                     </section>
 
-                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn" onclick="openBuyPopUp(0)">
                         Buy Sound
                     </button>
                 </ul>
@@ -84,7 +83,7 @@
                 <label class="category-label" for="check2">Laugh</label>
                 <ul class="sounds">
 
-                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-laugh-btn" onclick="openBuyPopUp(1)">
                         Buy Sound
                     </button>
                 </ul>
@@ -94,7 +93,7 @@
                 <label class="category-label" for="check3">Booing</label>
                 <ul class="sounds">
 
-                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-booing-btn" onclick="openBuyPopUp(2)">
                         Buy Sound
                     </button>
                 </ul>
@@ -104,7 +103,7 @@
                 <label class="category-label" for="check4">Bravo!</label>
                 <ul class="sounds">
 
-                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-bravo-btn" onclick="openBuyPopUp(3)">
                         Buy Sound
                     </button>
                 </ul>
@@ -114,7 +113,7 @@
                 <label class="category-label" for="check5">Whistle</label>
                 <ul class="sounds">
 
-                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-whistle-btn" onclick="openBuyPopUp(4)">
                         Buy Sound
                     </button>
                 </ul>
@@ -124,7 +123,7 @@
                 <label class="category-label" for="check6">Cheering</label>
                 <ul class="sounds">
 
-                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-cheering-btn" onclick="openBuyPopUp(5)">
                         Buy Sound
                     </button>
                 </ul>
@@ -134,7 +133,7 @@
                 <label class="category-label" for="check7">Disappointment</label>
                 <ul class="sounds">
 
-                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-disappointment-btn" onclick="openBuyPopUp(6)">
                         Buy Sound
                     </button>
                 </ul>
@@ -144,7 +143,8 @@
                 <label class="category-label" for="check8">Distinct Chatter</label>
                 <ul class="sounds">
 
-                    <button class="btn-big buy-btn buy-sound-btn" id="buy-applause-btn">
+                    <button class="btn-big buy-btn buy-sound-btn" id="buy-distinct-chatter-btn"
+                        onclick="openBuyPopUp(7)">
                         Buy Sound
                     </button>
                 </ul>
@@ -152,7 +152,21 @@
         </section>
     </section>
 
-    <section id="invitations-content" class="changable-content hide">
+    <section id="buy-sounds-wrapper" class="pop-up-wrapper hide display-flex">
+        <section class="pop-up" id="buy-pop-up">
+            <h1>Buy New Sound</h1>
+            <button class="close-btn btn-small" onclick="closeBuyPopUp()">X</button>
+            <section class="hide">
+                <section class="pop-up-line single-sound-info" id="single-sound-info">
+                    <p class="sound-to-buy-name flex-1"></p>
+                    <p class="sound-to-buy-points flex-1"></p>
+                    <button class="accept-btn btn-small" onclick="buySound()" id="buy-sound-btn">Buy</button>
+                </section>
+            </section>
+        </section>
+    </section>
+
+    <!-- <section id="invitations-content" class="changable-content hide">
         <h1>Your Invitations</h1>
         <ul id="invitations-list" class="unordered-list">
             <section class="invitation">
@@ -162,13 +176,13 @@
                 <button class="deny-btn btn-small">Deny</button>
             </section>
         </ul>
-    </section>
+    </section> -->
 
     <section id="create-event-content" class="changable-content hide">
         <h1>Create Event For Audience and Invite People</h1>
-        <form id="create-event-form" method="POST" action='events.php' enctype="multipart/form-data">
+        <form id="create-event-form" method="POST" action='./events.php' enctype="multipart/form-data">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" class="create-event-form-input" />
+            <input type="text" id="name" name="name" class="create-event-form-input" required />
 
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" class="create-event-form-input" />
@@ -208,12 +222,12 @@
         </ul>
     </section>
 
-    <section class="users-pop-up-wrapper hide display-flex" id="users-wrapper">
-        <section class="users-pop-up" id="users-pop-up">
+    <section class="pop-up-wrapper hide display-flex" id="users-wrapper">
+        <section class="pop-up" id="users-pop-up">
             <h1>Invite Audience to Your Event</h1>
             <button class="close-btn btn-small" onclick="closeUsersPopUp()">X</button>
             <section class="hide">
-                <section class="user-to-invite-info" id="single-user-info">
+                <section class="pop-up-line margin-bottom-15" id="single-user-info">
                     <p class="user-to-invite-username flex-1"></p>
                     <p class="user-to-invite-points flex-1"></p>
                     <button class="accept-btn btn-small">Invite</button>
@@ -222,6 +236,6 @@
         </section>
     </section>
 </body>
-<script src="homepage.js"></script>
+<script src="./homepage.js"></script>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'userModel.php';
+require_once './userModel.php';
 
 $curr_user = new User();
 $hosted_events = $curr_user->fetchAllHostedEvents($_SESSION['user_id']);

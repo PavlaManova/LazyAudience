@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Home Page</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -14,10 +15,10 @@
             <p>Choose an option below:</p>
 
             <div>
-                <a href="loginView.php">
+                <a href="./loginView.php">
                     <button>Login</button>
                 </a>
-                <a href="registration.html">
+                <a href="./registrationView.php">
                     <button>Register</button>
                 </a>
             </div>

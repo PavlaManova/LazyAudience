@@ -1,5 +1,5 @@
-<?php include 'homepageController.php' ?>
-<?php include 'hostController.php' ?>
+<?php include './homepageController.php' ?>
+<?php include './hostController.php' ?>
 
 <!DOCTYPE html>
 <html>
@@ -53,5 +53,5 @@
     </section>
 
 </body>
-<script src="hostEvent.js"></script>
+<script src="./hostEvent.js"></script>
 </html>
