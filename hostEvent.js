@@ -38,7 +38,7 @@ function showHomePage() {
 }
 
 function logout() {
-  var newUrl = "../LazyAudience/index.php"; // Replace with the desired URL
+  var newUrl = "./index.php"; // Replace with the desired URL
   history.replaceState({}, "", newUrl);
 
   window.location.href = newUrl;

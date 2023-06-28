@@ -69,7 +69,7 @@ function showHomePage() {
 }
 
 function logout() {
-  var newUrl = "../LazyAudience/index.php"; // Replace with the desired URL
+  var newUrl = "./index.php"; // Replace with the desired URL
   history.replaceState({}, "", newUrl);
 
   window.location.href = newUrl;
@@ -172,6 +172,7 @@ document
     usersForCurrentEvent = [];
 
     alert("Event added successfully!");
+    location.reload();
   });
 
 function loadEvents() {
@@ -206,6 +207,7 @@ function GETRequestForHostedEvents(requestURL, listId, isHost) {
 
 function appendEventChildToGivenList(element, listId, isHost) {
   let singleEvent = document.getElementsByClassName("event")[0].cloneNode(true);
+
   singleEvent.getElementsByClassName("event-title")[0].textContent =
     element["name"];
 

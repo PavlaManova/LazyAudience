@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Home Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <header>
@@ -16,10 +16,10 @@
 
             <div>
                 <a href="./loginView.php">
-                    <button>Login</button>
+                    <button id="loging">Login</button>
                 </a>
                 <a href="./registrationView.php">
-                    <button>Register</button>
+                    <button id="register">Register</button>
                 </a>
             </div>
         </section>

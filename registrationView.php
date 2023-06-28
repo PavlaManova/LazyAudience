@@ -39,7 +39,7 @@
     </main>
     <script>
         function goBack() {
-            window.location.href = '../LazyAudience/index.php';
+            window.location.href = './index.php';
         }
     </script>
 </body>
