@@ -112,6 +112,27 @@ class User
         return $stmt->fetchAll();
     }
 
+    public function buySound($user_id, $sound_id, $userCurrentPoints)
+    {
+        var_dump(5);
+        $sqlGetSoundPoints = "Select points FROM sounds WHERE id = :sound_id";
+        $stmt = $this->connection->prepare($sqlGetSoundPoints);
+        $stmt->bindParam(':sound_id', $sound_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $soundPoints = $stmt->fetch();
+
+        // if ($userCurrentPoints >= $soundPoints) {
+        $sql = "INSERT INTO usersounds (user_id, sound_id) VALUES (:user_id, :sound_id)";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':sound_id', $sound_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $newPoints = (int) $userCurrentPoints - (int) $soundPoints;
+        $this->updatePoints($user_id, $newPoints);
+        // }
+    }
+
 }
 
 

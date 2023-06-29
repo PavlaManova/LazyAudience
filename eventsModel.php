@@ -43,7 +43,10 @@ class Event
 
     public function getLastInsertedEventId()
     {
-        return $this->connection->lastInsertId();
+        $sql = "SELECT MAX(id) AS last_inserted_id FROM events;";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch()['last_inserted_id'];
     }
 }
 

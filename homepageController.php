@@ -35,4 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['load_hosted_events'])) {
     header('Content-Type: application/json');
     echo $userEventsInfoJson;
 }
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sound_id'])){
+    $sound_id = $_POST['sound_id'];
+    $user->buySound($_SESSION['user_id'], $sound_id, (int)$_SESSION['user_points']);
+    header('Content-Type: application/json'); 
+    // echo json_encode($response);
+}
 ?>

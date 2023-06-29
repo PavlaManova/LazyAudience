@@ -160,7 +160,7 @@
                 <section class="pop-up-line single-sound-info" id="single-sound-info">
                     <p class="sound-to-buy-name flex-1"></p>
                     <p class="sound-to-buy-points flex-1"></p>
-                    <button class="accept-btn btn-small" onclick="buySound()" id="buy-sound-btn">Buy</button>
+                    <button class="accept-btn btn-small buy-sound" id="buy-sound-btn">Buy</button>
                 </section>
             </section>
         </section>

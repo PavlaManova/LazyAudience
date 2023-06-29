@@ -30,3 +30,7 @@ Bravo!;Immediately
 1;Whistle;Immediately
 0;Applause;Immediately
 1;Applause;Immediately
+0;Bravo!;Immediately
+1;Cheering;In 3 2 1
+2;Disappointment;In 10 9 8...
+3;Bravo!;Immediately

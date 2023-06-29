@@ -139,8 +139,7 @@ document
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "./events.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
+    xhr.onload = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
           if (xhr.responseText == "success") {
@@ -156,18 +155,14 @@ document
     xhr.onerror = function () {
       console.log("An error occurred");
     };
-    xhr.send(
-      "create_event=1&name=" +
-        encodeURIComponent(name) +
-        "&description=" +
-        encodeURIComponent(description) +
-        "&date=" +
-        encodeURIComponent(date) +
-        "&hour=" +
-        encodeURIComponent(time) +
-        "&audience=" +
-        encodeURIComponent(audienceJsonString)
-    );
+    var formData = new FormData();
+    formData.append("create_event", 1);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("date", date);
+    formData.append("hour", time);
+    formData.append("audience", audienceJsonString);
+    xhr.send(formData);
 
     usersForCurrentEvent = [];
 
@@ -321,10 +316,35 @@ function appendSoundChildToBuyPopUp(element, currentList) {
     element["name"];
   singleSound.getElementsByClassName("sound-to-buy-points")[0].textContent =
     element["points"];
+
+  buyBtn = singleSound.getElementsByClassName("buy-sound")[0];
+  buyBtn.onclick = (function (soundId) {
+    return function () {
+      buySound(soundId);
+    };
+  })(element["id"]);
+
   currentList.appendChild(singleSound);
 }
 
-function buySound() {}
+// buy sound logic start
+function buySound(soundId) {
+  saveToDatabase(soundId);
+  // Remove sound from the list
+  //removeFromList(soundId);
+}
+
+function saveToDatabase(sound_id) {
+  // Create an XMLHttpRequest object
+  var xhttp = new XMLHttpRequest();
+
+  // Prepare the request
+  xhttp.open("POST", "./homepageController.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  // Send the request
+  xhttp.send("sound_id=" + encodeURIComponent(sound_id));
+}
 
 function closeBuyPopUp() {
   window.scrollTo(0, 0);
