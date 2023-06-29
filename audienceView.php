@@ -36,6 +36,8 @@
             <button class="play-sound-btn">Applause</button>
         </section>
     </section>
+
+    <figure class="overlay hide"></figure>
 </body>
 <script src="./audience.js"></script>
 

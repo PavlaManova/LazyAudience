@@ -1,1 +1,0 @@
-let lastTabElement = document.getElementById('hero');

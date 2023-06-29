@@ -44,14 +44,28 @@
                 <input label="Whistle" type="radio" id="whistle" name="category" value="whistle">
                 <input label="Cheering" type="radio" id="cheering" name="category" value="cheering">
                 <input label="Disappointment" type="radio" id="disappointment" name="category" value="disappointment">
-                <input label="Distinct Chatter" type="radio" id="distinct-chatter" name="category" value="distinct-chatter">
+                <input label="Distinct Chatter" type="radio" id="distinct-chatter" name="category"
+                    value="distinct-chatter">
             </section>
-            
+
         </section>
-        <button class="btn-big margin-top-15" id="commandButton"
-      onclick="sendCommand()">Send</button>
+        <section class="color-container ">
+            <h1>Change audience screen color?</h1>
+            <section class="options-container">
+                <section class="time-btns-container w-20">
+                    <input label="Yes" type="radio" id="yes" name="change-color" value="Yes" checked onclick="showColorInput()">
+                    <input label="No" type="radio" id="no" name="change-color" value="No" onclick="hideColorInput()">
+                </section>
+            </section>
+            <section id="color-input-container" class="">
+                <h1 class="size-em">Select the color for your audience screens</h1>
+                <input type="color" name="color" id="color-input">
+            </section>
+        </section>
+        <button class="btn-big margin-top-15" id="commandButton" onclick="sendCommand()">Send</button>
     </section>
 
 </body>
 <script src="./hostEvent.js"></script>
+
 </html>

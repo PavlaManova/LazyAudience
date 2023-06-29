@@ -1,10 +1,17 @@
 currentCategoryFromCommand = "";
 const pointsForCorrectSound = 3;
 let lastFetchedCommandId = -1;
+let timesPressed = 0;
+let receivingColor = true;
+let dataArr = [];
+let timeForColorDisplayShowing = 7000; //miliseconds
 
 const commandIdIndex = 0,
-commandTextIndex = 1,
-commandTimeIndex = 2;
+  commandTextIndex = 1,
+  commandTimeIndex = 2,
+  commandColorIndex = 3;
+
+  const dataSendWithoutColor = 3;
 
 const urlParams = new URLSearchParams(window.location.search);
 const eventId = urlParams.get("id");
@@ -54,8 +61,6 @@ function appendCategoryBtnChildToList(element) {
   document.getElementById("user-sounds-categories").appendChild(singleCategory);
 }
 
-let timesPressed = 0;
-
 function playRandomSoundFromCategory(categoryName) {
   if (timesPressed) return;
 
@@ -71,6 +76,7 @@ function playRandomSoundFromCategory(categoryName) {
   ) {
     timesPressed++;
     updateUserPointsOnCorrectSound();
+    displayColorScreen();
   } else {
     timesPressed++;
     return;
@@ -97,61 +103,23 @@ function logout() {
 
 function polling() {
   var xhttpr = new XMLHttpRequest();
-  xhttpr.open(
-    "GET",
-    "./listener.php?&eventId=" + eventId,
-    true
-  );
+  xhttpr.open("GET", "./listener.php?&eventId=" + eventId, true);
   xhttpr.setRequestHeader("Content-Type", "application/json");
 
   xhttpr.onload = function () {
     if (xhttpr.status === 200) {
-      if(!xhttpr.responseText) return;
+      if (!xhttpr.responseText) return;
       var data = JSON.parse(xhttpr.responseText);
-
-      var command = document.getElementsByClassName("command-text")[0];
-      var time = document.getElementsByClassName("command-time")[0];
+      dataArr = [];
 
       let newMsg = data.message.length > 0 ? data.message : "";
       if (newMsg) {
-        let dataArr = newMsg.split(";");
+        dataArr = newMsg.split(";");
         if (lastFetchedCommandId == dataArr[commandIdIndex]) return;
         else {
           lastFetchedCommandId = dataArr[commandIdIndex];
         }
-        command.textContent = dataArr[commandTextIndex];
-        timesPressed = 0;
-
-        switch (dataArr[commandTimeIndex]) {
-          case "Immediately\n": {
-            time.textContent = "Now";
-            timesPressed = 0;
-            break;
-          }
-          case "In 3 2 1\n": {
-            messages = ["In 3", "In 2", "In 1", "Now", ""];
-            displayMessage(messages, 0, time);
-            break;
-          }
-          case "In 10 9 8...\n": {
-            messages = [
-              "In 10",
-              "In 9",
-              "In 8",
-              "In 7",
-              "In 6",
-              "In 5",
-              "In 4",
-              "In 3",
-              "In 2",
-              "In 1",
-              "Now",
-              "",
-            ];
-            displayMessage(messages, 0, time);
-            break;
-          }
-        }
+        visualizeCommand(dataArr);
       }
     }
   };
@@ -161,6 +129,67 @@ function polling() {
   };
 
   xhttpr.send();
+}
+
+function visualizeCommand(dataArr) {
+  var command = document.getElementsByClassName("command-text")[0];
+  command.textContent = dataArr[commandTextIndex];
+
+  timesPressed = 0;
+
+  displayTimeForCommand(dataArr);
+
+  dataArr.length>dataSendWithoutColor ? receivingColor = true : receivingColor = false;
+}
+
+function displayTimeForCommand(dataArr) {
+  var time = document.getElementsByClassName("command-time")[0];
+  switch (dataArr[commandTimeIndex]) {
+    case "Immediately\n": {
+      time.textContent = "Now";
+      timesPressed = 0;
+      break;
+    }
+    case "In 3 2 1\n": {
+      messages = ["In 3", "In 2", "In 1", "Now", ""];
+      displayMessage(messages, 0, time);
+      break;
+    }
+    case "In 10 9 8...\n": {
+      messages = [
+        "In 10",
+        "In 9",
+        "In 8",
+        "In 7",
+        "In 6",
+        "In 5",
+        "In 4",
+        "In 3",
+        "In 2",
+        "In 1",
+        "Now",
+        "",
+      ];
+      displayMessage(messages, 0, time);
+      break;
+    }
+  }
+}
+
+function displayColorScreen()
+{
+  if(!receivingColor)
+  return;
+  window.scrollTo(0, 0);
+  document.getElementsByClassName("overlay")[0].style.backgroundColor = dataArr[commandColorIndex];
+  document.getElementsByClassName("overlay")[0].classList.remove('hide');
+
+  setTimeout(hideColorScreen,timeForColorDisplayShowing);
+}
+
+function hideColorScreen()
+{
+  document.getElementsByClassName("overlay")[0].classList.add('hide');
 }
 
 polling();
