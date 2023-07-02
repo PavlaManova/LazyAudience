@@ -500,46 +500,6 @@ input {
   background-color: #000066;
 }
 
-button#loging,
-button#register,
-button#goback {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-button#loging,
-button#register {
-  background-color: #3498db;
-}
-
-button#loging:hover,
-button#register:hover {
-  background-color: #2980b9;
-}
-
-button#goback {
-  display: block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: white;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-button#goback:hover {
-  background-color: #2980b9;
-}
-
-button#register {
-  background-color: #3498db;
-}
-
 #color-input {
   width: 20%;
   height: 150px;
@@ -562,4 +522,91 @@ button#register {
   height: 100%;
   z-index: 9999;
   margin: 0;
+}
+
+
+/* new */
+
+.registration-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.custom-file-input
+{
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+#index {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+#index h2 {
+  text-align: center;
+  font-size: 35px;
+  margin-bottom: 10px;
+  color: #000066;
+  font-weight: bolder;
+}
+
+#index p {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+  color: #000066;
+  font-weight: bolder;
+}
+
+#registrationForm,
+#loginForm {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#registrationForm label,
+#loginForm label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#mainlogin,
+#mainregistration {
+  max-width: 500px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 20px auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+.index-title
+{
+  color: beige;
+  align-self: center;
+  text-align: center;
+  display: flex;
 }

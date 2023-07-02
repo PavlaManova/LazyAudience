@@ -69,7 +69,7 @@ function showHomePage() {
 }
 
 function logout() {
-  var newUrl = "./index.php"; // Replace with the desired URL
+  var newUrl = "./index.php";
   history.replaceState({}, "", newUrl);
 
   window.location.href = newUrl;
@@ -105,11 +105,12 @@ function createInviteUserElement(user) {
 
   let inviteBtn = singleUser.getElementsByClassName("accept-btn")[0];
   inviteBtn.id = "invite-" + user["id"];
-  inviteBtn.onclick = (function (userID) {
+  inviteBtn.onclick = (function (userID, element) {
     return function () {
       inviteUser(userID);
+      element.parentNode.removeChild(element);
     };
-  })(user["id"]);
+  })(user["id"], singleUser);
 
   document.getElementById("users-pop-up").appendChild(singleUser);
 }
@@ -127,8 +128,6 @@ document
   .getElementById("create-event-form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
-
-    //TO DO - add the current event to events container because the container is already fetched
 
     let name = document.getElementById("name").value;
     let description = document.getElementById("description").value;
@@ -335,14 +334,11 @@ function buySound(soundId) {
 }
 
 function saveToDatabase(sound_id) {
-  // Create an XMLHttpRequest object
   var xhttp = new XMLHttpRequest();
 
-  // Prepare the request
   xhttp.open("POST", "./homepageController.php", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-  // Send the request
   xhttp.send("sound_id=" + encodeURIComponent(sound_id));
 }
 
