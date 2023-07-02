@@ -19,10 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fileIsUploaded = false;
     if ((isset($_FILES['avatar']) && !empty($_FILES['avatar']['tmp_name']))) {
         $profilePicture = $_FILES["avatar"]["tmp_name"];
-        $targetDir = 'uploads/' . basename($_FILES["avatar"]["name"]);
+        $targetDir = './uploads/' . basename($_FILES["avatar"]["name"]);
         $fileIsUploaded = true;
     } else {
-        $targetDir = 'uploads/1.png';
+        $targetDir = './uploads/1.png';
         
     }
 
